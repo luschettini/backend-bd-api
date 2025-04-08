@@ -1,8 +1,8 @@
-const userModel = require("../models/userModel");
+const UserModel = require("../models/UserModel");
 
 const getAllUsers = async (req, res) => {
     try {
-        const users = await userModel.getUsers();
+        const users = await UserModel.getUsers();
         res.json(users);
     } catch (error) {
         res.status(404).json({ message: "Erro ao buscar usuários." });
@@ -11,7 +11,7 @@ const getAllUsers = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
-        const user = await userModel.getUserById(req.params.id);
+        const user = await UserModel.getUserById(req.params.id);
         if (!user) {
             return res.status(404).json({ message: "Usuário não encontrado." });
         }
@@ -24,7 +24,7 @@ const getUser = async (req, res) => {
 const createUser = async (req, res) => {
     try {
         const { name, email } = req.body;
-        const newUser = await userModel.createUser(name, email);
+        const newUser = await UserModel.createUser(name, email);
         res.status(201).json(newUser);
     } catch (error) {
 	 console.log(error);
@@ -38,7 +38,7 @@ const createUser = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const { name, email } = req.body;
-        const updatedUser = await userModel.updateUser(req.params.id, name, email);
+        const updatedUser = await UserModel.updateUser(req.params.id, name, email);
         if (!updatedUser) {
             return res.status(404).json({ message: "Usuário não encontrado." });
         }
@@ -50,7 +50,7 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     try {
-        const message = await userModel.deleteUser(req.params.id);
+        const message = await UserModel.deleteUser(req.params.id);
         res.json(message);
     } catch (error) {
         res.status(500).json({ message: "Erro ao deletar usuário." });
