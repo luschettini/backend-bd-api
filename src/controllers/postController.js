@@ -2,7 +2,8 @@ const PostModel = require("../models/PostModel");
 
 const getAllPosts = async (req, res) => {
     try {
-        const posts = await PostModel.getAllPosts();
+        const { title } = req.query;
+        const posts = await PostModel.getPosts(title)
         res.json(posts);
     } catch (error) {
         res.status(500).json({ message: "Erro ao buscar posts." });
