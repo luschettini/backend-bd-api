@@ -1,23 +1,24 @@
-// swagger.js
-const swaggerJsdoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
+// src/config/swagger.js
+
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
 const options = {
   definition: {
-    openapi: '3.0.0',
+    openapi: "3.0.0",
     info: {
-        title: 'API dos Users e Posts',
-        version: '1.0.0',
-        description: 'Documentação da API para gerenciar usuários e posts',
+      title: "API de Posts",
+      version: "1.0.0",
+      description: "Documentação da API de Posts usando Swagger",
     },
   },
-  apis: ['./src/routes/*.js'], // <- Caminho das suas rotas
+  apis: ["./src/routes/*.js"], // ajuste o caminho se necessário
 };
 
-const swaggerSpec = swaggerJsdoc(options);
+const specs = swaggerJsdoc(options);
 
-const setupSwagger = (app) => {
-  app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-};
+function setupSwagger(app) {
+  app.use("/doc", swaggerUi.serve, swaggerUi.setup(specs));
+}
 
 module.exports = setupSwagger;
